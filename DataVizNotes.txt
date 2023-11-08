@@ -1,0 +1,70 @@
+Energy-Danceability Relationship:
+
+Can we identify a relationship between energy and danceability, and use it for classification or regression?
+
+
+Popularity Prediction:
+
+Can we predict the popularity of a track based on its features (duration, danceability, energy, etc.)?
+
+
+Genre Classification:
+
+Can we build a classifier to automatically categorize a track into genres based on its features?
+
+
+Identifying Outliers:
+
+Are there outliers in the dataset, and can we use anomaly detection algorithms to identify them?
+
+
+Home Page : Video or image comme background ( Welcome to ....) 
+		    link to the dashboards 
+		    on the main page (taht l image ) nelka 3 carre fihom l link t kol dashboard 
+Dashboards : sidebar
+	     template that i found
+
+
+
+
+
+
+'''
+from Pages.DatasetExploration.Plots.bar_plot import Bar_plot
+
+DataFrame_path = "dataset.csv"
+
+plot = Bar_plot(DataFrame_path)
+
+#bar_plot_pane = pn.pane.Plotly(plot)
+#bar_plot_pane.servable()
+if plot:
+    print("Yess SIIIR")
+else:
+    print("NOO")
+
+
+from Pages.HomePage.header import create_header
+from Pages.HomePage.footer import create_footer
+
+# Create the header and footer
+header = create_header()
+footer = create_footer()
+
+home_page_layout = pn.Column(header, "Content Goes Here", footer)
+home_page_layout.servable()
+'''
+
+#from Pages.HomePage.header import Navbar
+#from Pages.DatasetExploration.Plots.EDA import EDA
+
+
+#welcome_message = pn.pane.Markdown("# Welcome to My Data App", align="center", style={'font-size': '24px'})
+'''
+template = Navbar()
+# Serve the app
+pn.serve(template)
+'''
+#layout = EDA()
+
+#pn.serve(layout)

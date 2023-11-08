@@ -1,0 +1,23 @@
+/* styles.css */
+
+/* Custom styling for the RangeSlider */
+.custom-slider .bk-noUi-connect {
+    background: linear-gradient(to right, #4CAF50, #4CAF50);
+}
+
+.custom-slider .bk-noUi-handle {
+    background: #4CAF50;
+}
+
+/* Custom styling for the Select widget */
+.custom-select select {
+    border: 1px solid #4CAF50;
+    background-color: #f1f1f1;
+    padding: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.custom-select select:hover {
+    background-color: #ddd;
+}
