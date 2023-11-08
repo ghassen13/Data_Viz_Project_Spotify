@@ -1,12 +1,12 @@
 import panel as pn
-import sys
+from bokeh.models import CustomJS
 
-sys.path.append('D:/Master BDIA - M2/Data_Viz_Project/MyApp')
-from EDA import data_show, plot_popularity_analysis,plot_duration_analysis,plot_energy_danceability,plot_energy_loudness
+
 from component.eda.tempo_plot import TempoPlotter
 from component.eda.table import DataTable
 from component.eda.duration_plot import DurationPlotter
-from component.eda.energy_loudness import EnergyLoudnessPlotter
+from component.eda.scatter_plot import ScatterPlotter
+from component.eda.bar_plot import BarPlotter
 
 from Data.data_loader import preProcessed_data
 data = preProcessed_data
@@ -22,25 +22,13 @@ pn.config.raw_css.append('styles.css')
 # Set the background image
 background_image_url = "https://png.pngtree.com/thumb_back/fh260/background/20230626/pngtree-spotify-logo-in-3d-rendering-image_3684274.jpg"  # replace with the actual path or URL
 
-# Create the template with a black background, sidebar, and specific sidebar width
-template = pn.template.FastListTemplate(
-    title='Spotify Dashboard',
-    header_color="#1DB954",
-    collapsed_sidebar=False,
-    header_background=background_color,
-    sidebar_width=330,
-    corner_radius=5,
-    font='Roboto',
-    font_weight='bold',
-    sidebar_background="#33333",  
-    footer_background="#ffffff",
-)
 
-# Instantiate TempoPlotter
+# Instantiate Functions
 tempo_plotter = TempoPlotter(data)
 data_table = DataTable(data)
 duration_plotter = DurationPlotter(data)
-energy_loudness_plotter = EnergyLoudnessPlotter(data)
+Scatter_Plotter = ScatterPlotter(data)
+Bar_plotter = BarPlotter(data)
 
 
 # Add a RangeSlider to interactively change the tempo range in the sidebar
@@ -53,22 +41,61 @@ genre_selector.param.watch(data_table._update_table, 'value')
 
 
 
-# Create a FasList grid layout for better control
-main_layout = pn.Column(
+
+# Layout Section
+
+pn.extension(sizing_mode="stretch_width")
+
+CSS = """
+div.card-margin:nth-child(1) {
+    max-height: 300px;
+}
+div.card-margin:nth-child(2) {
+    max-height: 400px;
+}
+"""
+
+
+# Main Layouts
+main_layout1 = pn.Column(
     data_table.layout,
-    duration_plotter.layout,
-    tempo_plotter.layout,
-    energy_loudness_plotter.layout,
-    
+    styles={}, sizing_mode="stretch_width"
+      
 )
 
+main_layout2 = pn.Column(
+    Scatter_Plotter.layout,
+    duration_plotter.layout,
+    tempo_plotter.layout,
+    styles={}, sizing_mode="stretch_width"
+)
+
+main_layout3 = pn.Column(
+    Bar_plotter.layout,
+    styles={}, sizing_mode="stretch_width"
+)
+
+
+# Create the template with a black background, sidebar, and specific sidebar width
+template = pn.template.FastListTemplate(
+    site="SPOTIFY",
+    title='Dashboard APP',
+    header_color="#1DB954",
+    collapsed_sidebar=False,
+    header_background=background_color,
+    sidebar_width=330,
+    corner_radius=5,
+    font='Roboto',
+    font_weight='bold',
+    sidebar_background="#33333",  
+    main=[main_layout1, main_layout2, main_layout3]
+)
+
+template.sidebar.append(pn.pane.Markdown("Settings : "))
 # Add the tempo slider to the sidebar
 template.sidebar.append(tempo_slider)
 # Add the CategorySelector to the sidebar
 template.sidebar.append(genre_selector)
-
-# Append the layout to the main area
-template.main.append(main_layout)
 
 # Display the template
 template.servable()

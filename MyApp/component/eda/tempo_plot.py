@@ -22,7 +22,13 @@ class TempoPlotter:
 
     def _create_plot(self):
         filtered_data = self.data[(self.data['Tempo'] >= self.tempo_range[0]) & (self.data['Tempo'] <= self.tempo_range[1])]
-        tempo_plot = filtered_data.hvplot.hist(y='Tempo', bins=20, kde=True, height=500, width=800, title='Tempo Distribution')
+        tempo_plot = filtered_data.hvplot.hist(
+            y='Tempo', 
+            bins=20, 
+            kde=True, 
+            height=500, 
+            width=1200, 
+            title='Tempo Distribution')
         return tempo_plot
     
     def _handle_zoom(self, plot, element):

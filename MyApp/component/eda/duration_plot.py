@@ -6,35 +6,33 @@ class DurationPlotter:
         self.data = data
         self.filtered_data = data.copy()
 
-        # Create a blank plot
-        self.plot = self._create_plot()
+        # Specify the columns you want in the filter widget
+        filter_attributes = list(data.drop(['Track ID', 'Artists', 'Album Name', 'Track Name', 'Track Genre', 'Time Signature', 'Key', 'Mode', 'Explicit','Duration (ms)'], axis=1))
 
-        # Combine the Plot and Selector using Panel 
-        self.layout = pn.Column(self.plot)
-
-    def _create_plot(self):
-        # Use hvplot to create the initial plot
-        return self.data.groupby('Track Genre')['Duration (ms)'].mean().hvplot.line(
-            xlabel='Track Genre', 
-            ylabel='Average Duration (ms)', 
-            height=500, 
-            width=1200,  # Set the width policy to 'max_width'
-            sizing_mode='stretch_width', 
-            title='Average Track Duration by Genre'
+        # Create filter widget with specified options
+        self.filter_widget = pn.widgets.Select(
+            name='Select Attribute for X-axis',
+            options=filter_attributes,
+            value="Tempo"
         )
 
-    def _update_plot(self, event):
-        selected_genre = event.new
+        # Combine the Plot and Selector using Panel
+        self.layout = pn.Column(self.filter_widget, self._create_plot)
 
-        if selected_genre == 'All':
-            self.filtered_data = self.data.copy()
-        else:
-            self.filtered_data = self.data[self.data['Track Genre'] == selected_genre]
+        # Use pn.depends to dynamically update the plot based on widget changes
+        @pn.depends(value=self.filter_widget.param.value)
+        def reactive_plot(value):
+            return self._create_plot(value)
 
-        # Update the plot with the filtered data
-        self.plot.data = self.filtered_data.groupby('Track Genre')['Duration (ms)'].mean().hvplot.line(
-            xlabel='Track Genre', 
-            ylabel='Average Duration (ms)', 
-            width=1200,  # Set the width policy to 'max_width'
-            sizing_mode='stretch_width'
+        # Display the reactive plot
+        self.layout.append(reactive_plot)
+
+    def _create_plot(self, value):
+        # Use hvplot to create the initial plot
+        return self.data.groupby(value)['Duration (ms)'].mean().hvplot.line(
+            xlabel=value,
+            ylabel='Average Duration (ms)',
+            height=500,
+            width=1200,
+            sizing_mode='stretch_width',
         )
