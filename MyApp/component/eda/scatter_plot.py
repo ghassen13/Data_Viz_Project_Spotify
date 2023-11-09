@@ -1,6 +1,8 @@
 import panel as pn
 import holoviews as hv
 
+pn.extension(sizing_mode="stretch_width")
+
 class ScatterPlotter:
     def __init__(self, data):
         self.data = data
@@ -50,7 +52,8 @@ class ScatterPlotter:
             cmap='Category20',
             legend='top_right',  # Position the legend
             height=700,
-            width=1200,
+            #width=1200,
+            sizing_mode="stretch_width",
             title=f'{x_axis} vs {y_axis} Distribution'
         )
 

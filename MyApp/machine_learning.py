@@ -33,16 +33,6 @@ main_layout2 = pn.Column(
 # Create the template with a black background, sidebar, and specific sidebar width
 template = pn.template.FastListTemplate(
     title='Spotify Dashboard',
-    header_color="#1DB954",
-    collapsed_sidebar=False,
-    header_background=background_color,
-    sidebar_width=330,
-    corner_radius=5,
-    font='Roboto',
-    font_weight='bold',
-    sidebar_background="#33333",  
-    footer_background="#ffffff",
-    main=[main_layout1, main_layout2]
 )
 
 # Add the tempo slider to the sidebar

@@ -10,17 +10,24 @@ class BarPlotter:
         filter_options = list(self.data[["Album Name", "Track Name", "Track Genre", 'Artists']])
         self.filter_selector = pn.widgets.Select(name='Select Filter', options=filter_options, value=filter_options[0])
 
-        # Use pn.bind to dynamically update the plot based on widget changes
-        self.plot = pn.bind(self._create_plot, self.filter_selector)
+        # Initialize an empty plot using HoloViews
+        self.bar_plot_pane = pn.pane.HoloViews()
 
         # Combine the Plot and Selector using Panel
         self.layout = pn.Column(
             pn.Row(self.filter_selector),
-            pn.Row(self.plot)
+            pn.Row(self.bar_plot_pane)
         )
 
-    @pn.depends('filter_selector.value')
-    def _create_plot(self, filter_value):
+        # Register callback for widget changes
+        self.filter_selector.param.watch(self._update_plot, 'value')
+
+        # Initial plot
+        self._update_plot()
+
+    def _create_plot(self):
+        filter_value = self.filter_selector.value
+
         if filter_value not in self.data.columns:
             return None  # Handle the case where the selected column doesn't exist
 
@@ -38,8 +45,15 @@ class BarPlotter:
             ylabel="Popularity",
             title=f'Top 10 Popularity by {filter_value}',
             rot=45,
-            height=500,
+            height=700,
             width=800
         )
 
         return bar_plot
+
+    def _update_plot(self, event=None):
+        # Triggered when the filter_selector value changes
+        bar_plot = self._create_plot()
+
+        # Update the Pane with the new plot
+        self.bar_plot_pane.object = bar_plot

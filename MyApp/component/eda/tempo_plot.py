@@ -5,6 +5,7 @@ sys.path.append('D:/Master BDIA - M2/Data_Viz_Project/MyApp')
 from Data.data_loader import preProcessed_data
 import panel as pn
 import hvplot.pandas
+pn.extension(sizing_mode="stretch_width")
 
 
 data = preProcessed_data
@@ -27,7 +28,8 @@ class TempoPlotter:
             bins=20, 
             kde=True, 
             height=500, 
-            width=1200, 
+            #width=1200,
+            sizing_mode="stretch_width", 
             title='Tempo Distribution')
         return tempo_plot
     
