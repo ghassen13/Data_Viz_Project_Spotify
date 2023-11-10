@@ -26,13 +26,22 @@ class XGBoostApp:
         # Set up the layout
         self.layout = pn.Row(
             pn.Column(
-                "XGBoost classification model.",
+                "# XGBoost classification model.",
+                "### Adjust your model parameters to get better results !",
+                pn.bind(lambda n_trees, max_depth, booster: f'# <code>{n_trees=} | {max_depth=} | {booster=}</code>', self.n_trees, self.max_depth, self.booster),
                 self.X.head(),
                 pn.bind(self.pipeline, self.n_trees, self.max_depth, self.booster),
-                pn.bind(lambda n_trees, max_depth, booster: f'# <code>{n_trees=} | {max_depth=} | {booster=}</code>', self.n_trees, self.max_depth, self.booster),
+                
             ),
             sizing_mode = "stretch_width"
         )
+
+    # Reset Function
+    def reset_filters(self):
+        self.n_trees.value = 2
+        self.max_depth.value = 2
+        self.booster.value = 'gbtree'
+        
 
     def preprocess_data(self):
         # Drop columns that are not suitable for training
@@ -51,5 +60,3 @@ class XGBoostApp:
             align='center',
             sizing_mode="stretch_width"
         )
-    
- 
