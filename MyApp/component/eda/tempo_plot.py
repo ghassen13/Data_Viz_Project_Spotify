@@ -6,7 +6,12 @@ from Data.data_loader import preProcessed_data
 import panel as pn
 import hvplot.pandas
 pn.extension(sizing_mode="stretch_width")
-
+pn.extension(sizing_mode='stretch_width')
+plot_opts = dict(
+    responsive=True, min_height=400,
+    # Align the curves' color with the template's color
+    color=pn.template.FastListTemplate.accent_base_color
+)
 
 data = preProcessed_data
 
@@ -29,6 +34,7 @@ class TempoPlotter:
             kde=True, 
             height=500, 
             #width=1200,
+            **plot_opts,
             sizing_mode="stretch_width", 
             title='Tempo Distribution')
         return tempo_plot

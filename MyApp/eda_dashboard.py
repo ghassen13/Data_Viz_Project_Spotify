@@ -10,7 +10,6 @@ from component.eda.bar_plot import BarPlotter
 from component.eda.heatmap import HeatmapPlotter
 from component.eda.piechart import PieChart
 
-
 from Data.data_loader import preProcessed_data
 data = preProcessed_data
 
@@ -24,6 +23,7 @@ pn.config.raw_css.append('styles.css')
 
 # Set the background image
 background_image_url = "https://png.pngtree.com/thumb_back/fh260/background/20230626/pngtree-spotify-logo-in-3d-rendering-image_3684274.jpg"  # replace with the actual path or URL
+logo_url = "logo-removebg-preview.png"
 
 
 # Instantiate Functions
@@ -60,14 +60,12 @@ def reset_filters(event):
     genre_selector.value = 'All'
     popularity_filter.value = (data['Popularity'].min(), data['Popularity'].max())
 
+
 reset_button = pn.widgets.Button(
     name="Reset Filters", 
     button_type="danger", 
-    )
+)
 reset_button.on_click(reset_filters)
-
-
-
 
 
 
@@ -78,14 +76,6 @@ reset_button.on_click(reset_filters)
 
 pn.extension(sizing_mode="stretch_width")
 
-CSS = """
-div.card-margin:nth-child(1) {
-    max-height: 300px;
-}
-div.card-margin:nth-child(2) {
-    max-height: 400px;
-}
-"""
 
 
 # MAIN LAYOUT
@@ -107,18 +97,18 @@ main_layout3 = pn.Column(
     styles={}, sizing_mode="stretch_width"
 )
 
+# Create a link to the second dashboard
+dashboard2_link = "<a href=''>Go to Second Dashboard</a>"
 
-
-# Create the template with a black background, sidebar, and specific sidebar width
+# Create the template 
 template = pn.template.FastListTemplate(
     site="SPOTIFY",
     title='Dashboard APP',
     header_color="#1DB954",
-    collapsed_sidebar=False,
-    header_background=background_color,
-    sidebar_width=330,
-    corner_radius=5,  
-    main=[main_layout1, main_layout2, main_layout3]
+    header_background=background_color,  
+    main=[main_layout1, main_layout2, main_layout3],
+    logo=logo_url,
+    
 )
 
 
@@ -131,6 +121,7 @@ template.sidebar.append(pn.Column("<h2>Tempo Slider</h2>", tempo_slider))
 # Add the CategorySelector to the sidebar
 template.sidebar.append(pn.Column("<h2>Genre Selector</h2>", genre_selector))
 template.sidebar.append(pn.Column("<h2>Popularity Filter</h2>", popularity_filter))
+ 
 
 # NAVIGATION BAR
 
@@ -141,8 +132,6 @@ tabs = pn.Tabs(
     ("Explanatory Data Analysis for Categorical Data", main_layout3),
 
 )
-
-
 template.main[:] = [tabs]
 
 # Display the template

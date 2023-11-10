@@ -3,6 +3,13 @@ import pandas as pd
 import holoviews as hv
 import hvplot.pandas
 
+pn.extension(sizing_mode='stretch_width')
+plot_opts = dict(
+    responsive=True, min_height=400,
+    # Align the curves' color with the template's color
+    color=pn.template.FastListTemplate.accent_base_color
+)
+
 class HeatmapPlotter:
     def __init__(self, data):
         self.data = data
@@ -18,7 +25,7 @@ class HeatmapPlotter:
         # Combine the Heatmap and Selector using Panel
         self.layout = pn.Column(
             pn.Row(self.filter_selector),
-            pn.Row(self.heatmap_pane)
+            pn.Row(self.heatmap_pane, sizing_mode='stretch_width')
         )
 
         # Register callback for widget changes
@@ -44,8 +51,10 @@ class HeatmapPlotter:
             cmap='viridis',
             colorbar=True,
             title=f'Correlation Matrix Heatmap',
+            height=600,
+            #width=1450,
             sizing_mode='stretch_width',
-            height=500,
+            **plot_opts, 
             xticks=None,
             yticks=None,
             fmt="%.0f%%",
