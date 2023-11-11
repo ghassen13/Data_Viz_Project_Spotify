@@ -1,10 +1,7 @@
-import sys
-sys.path.append('D:/Master BDIA - M2/Data_Viz_Project/MyApp')
-
-#from Data.data_loader import load_data
 from Data.data_loader import preProcessed_data
 import panel as pn
 import hvplot.pandas
+
 pn.extension(sizing_mode="stretch_width")
 pn.extension(sizing_mode='stretch_width')
 plot_opts = dict(

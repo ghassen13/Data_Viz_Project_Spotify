@@ -10,7 +10,7 @@ class PieChart:
 
     def _create_dashboard(self):
         # Groupez les pistes par genre et calculez la popularité moyenne pour chaque genre
-        genre_popularity = self.data.groupby('Artists')['Popularity'].mean().reset_index()
+        genre_popularity = self.data.groupby('Artists')['Popularity'].count().reset_index()
 
         # Triez les genres en fonction de leur popularité moyenne (du plus élevé au plus bas)
         sorted_genre_popularity = genre_popularity.sort_values(by='Popularity', ascending=False)
@@ -19,7 +19,7 @@ class PieChart:
         top_10_genres = sorted_genre_popularity.head(10)
 
         # Créez un Donut Chart avec Plotly Express
-        fig = px.pie(top_10_genres, names='Artists', values='Popularity', hole=0.3, title='Artistes les plus populaires')
+        fig = px.pie(top_10_genres, names='Artists', values='Popularity', hole=0.5, title='Top Artists by number of tracks')
         fig.update_traces(textinfo='percent+label')
 
         # Créez un widget Panel pour afficher le graphique Plotly

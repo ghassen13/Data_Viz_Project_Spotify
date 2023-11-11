@@ -16,13 +16,8 @@ data = preProcessed_data
 # Set the background color
 background_color = "#000000"  # black color
 text_color = "#1DB954"
-
-# Link the external CSS file to the Panel app
-pn.config.raw_css.append('styles.css')
-
-
 # Set the background image
-background_image_url = "https://png.pngtree.com/thumb_back/fh260/background/20230626/pngtree-spotify-logo-in-3d-rendering-image_3684274.jpg"  # replace with the actual path or URL
+
 logo_url = "logo-removebg-preview.png"
 
 
@@ -97,9 +92,6 @@ main_layout3 = pn.Column(
     styles={}, sizing_mode="stretch_width"
 )
 
-# Create a link to the second dashboard
-dashboard2_link = "<a href=''>Go to Second Dashboard</a>"
-
 # Create the template 
 template = pn.template.FastListTemplate(
     site="SPOTIFY",
@@ -114,6 +106,7 @@ template = pn.template.FastListTemplate(
 
 # SIDEBAR
 
+template.sidebar.append(pn.pane.HTML('##  In the Exploratory Data Analysis (EDA) dashboard, you can provide a brief description of the purpose of the dashboard, the data being explored, and any insights or analysis that users can gain from it.'))
 # Add the reset button to the sidebar
 template.sidebar.append(pn.Column("<h2>Reset Filters</h2>", reset_button))
 # Add the tempo slider to the sidebar
