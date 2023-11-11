@@ -4,7 +4,8 @@ FROM python:3.11
 WORKDIR /app
 
 # Copy the entire project to the container
-COPY . /app
+COPY . .
+
 COPY ./MyApp/Data /app/MyApp/Data
 
 
@@ -15,4 +16,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Command to run both applications
-CMD ["python", "/app/MyApp/eda_dashboard.py", "&", "sleep", "5", "&&", "python", "/app/MyApp/machine_learning.py"]
+CMD ["bash", "-c", "python /app/MyApp/eda_dashboard.py & sleep 5 && python /app/MyApp/machine_learning.py --host 0.0.0.0 --port 7860"]
+
