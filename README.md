@@ -23,11 +23,13 @@ Home Page: Navigate to the home page to get an overview of the application.
 
 Dashboard 1 - Exploratory Dashboard: Explore the Spotify tracks dataset with various filters and visualizations. Uncover patterns, trends, and details of top songs, artists, and genres.
 
-Access: [http://127.0.0.1:8000/firstdash](http://localhost:5006/eda_dashboard)
+Access: [http://127.0.0.1:8000/eda_dashboard](http://localhost:5006/eda_dashboard)
+
 Dashboard 2 - Genre Prediction Dashboard: Predict and understand the genre of a track using machine learning models. Interact with predictions and discover the magic behind the music.
             - Clustering problem : Clustering aims to bring together the most similar genres for reasons such as a recommendation system.
 
-Access: [http://127.0.0.1:8000/seconddash](http://localhost:5006/machine_learning)
+Access: [http://127.0.0.1:8000/machine_learning](http://localhost:5006/machine_learning)
+
 Dashboard 3 - Further Analysis: For those who crave more, this dashboard provides a space for additional insights, allowing you to explore fascinating aspects of the dataset that go beyond genre prediction.
 
-Access: [http://127.0.0.1:8000/seconddash](http://localhost:5006/further_analysis)
+Access: [http://127.0.0.1:8000/further_analysis](http://localhost:5006/further_analysis)
