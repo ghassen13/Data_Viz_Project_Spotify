@@ -6,11 +6,14 @@ Spotify Track App is a data application that allows users to explore, analyze, a
 ## Requirements 
 To run Spotiviz, follow these steps:
 1. Create and activate a virtual environment:
+   
 python -m venv venv
 venv/Scripts/activate
-2. Install the required packages using the following command:
+3. Install the required packages using the following command:
+
 pip install -r requirements.txt
-3. Start the application using Pansel Serve:
+4. Start the application using Pansel Serve:
+
 Panel serve file.py
 
 ## Dashboards : 
