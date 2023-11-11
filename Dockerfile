@@ -7,10 +7,10 @@ WORKDIR /app
 COPY . .
 
 COPY ./MyApp/Data /app/MyApp/Data
-
+COPY ./requirements.txt /code/requirements.txt
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgraed -r /app/requirements.txt
 
 # Expose the port your app runs on
 EXPOSE 5000
